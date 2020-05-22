@@ -1,2 +1,4 @@
 *.txt
+*.enc
+*.dec
 des

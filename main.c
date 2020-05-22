@@ -41,25 +41,25 @@ int main(int argc, char **argv)
 	{
 		if(strcmp(argv[2], "-des") == 0)
 		{
-			if(strcmp(argv[3], "-d") != 0)
+			if(strcmp(argv[3], "-e") == 0)
 			{
 				printf("enter des encryption password:\n");
 				char pw[64];
 				scanf("%s", pw);
-				char *s = read_file(argv[3]);
+				char *s = read_file(argv[4]);
 
 				u64 key = generate_key(pw);
 				msg *m = char_to_msg(s);
 				msg *c = des(key, m);
 				char *out = msg_to_hexa(c);
-				write_file(argv[4], out);
+				write_file(argv[5], out);
 
 				clear_msg(m);
 				clear_msg(c);
 				free(s);
 				free(out);
 			}
-			else
+			else if(strcmp(argv[3], "-d") == 0)
 			{
 				printf("enter des decryption password:\n");
 				char pw[64];
@@ -77,7 +77,11 @@ int main(int argc, char **argv)
 				free(s);
 				free(out);
 			}
-			
+			else
+			{
+				printf("Invalid action. Try : %s --help\n", argv[0]);
+			return 1;
+			}
 		}
 		else if(strcmp(argv[2], "-3des") == 0)
 		{

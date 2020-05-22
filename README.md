@@ -14,7 +14,7 @@ This program use passwords to generate key.
 
 Encrypt test.txt using :
 
-<pre>./des [ALGORITHM] enc test.txt test.enc</pre>
+<pre>./des [ALGORITHM] enc -e test.txt test.enc</pre>
 
 ### Decrypt
 
@@ -31,3 +31,7 @@ One of these option :
 ### Verify
 
 <pre>diff test.txt test.dec</pre>
+
+## Source
+
+The main source code is on : <url>https://github.com/Sholde/des</url>

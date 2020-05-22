@@ -7,6 +7,9 @@
 #include "io.h"
 #include "convert.h"
 
+#define RESET "\033[0m"
+#define BOLD "\033[1m"
+
 void clear_msg(msg *m) {
     free(m->tab);
     free(m);
@@ -24,7 +27,7 @@ int main(int argc, char **argv)
 	{
 		if(strcmp(argv[1], "--help") == 0)
 		{
-			printf("help\n");
+			printf(BOLD "RTFM\n" RESET);
 			return 0;
 		}
 		else
@@ -40,13 +43,16 @@ int main(int argc, char **argv)
 		{
 			if(strcmp(argv[3], "-d") != 0)
 			{
-				char *s = read_file(argv[4]);
+				printf("enter des encryption password:\n");
+				char pw[64];
+				scanf("%s", pw);
+				char *s = read_file(argv[3]);
 
-				u64 key = generate_key(argv[3]);
+				u64 key = generate_key(pw);
 				msg *m = char_to_msg(s);
 				msg *c = des(key, m);
 				char *out = msg_to_hexa(c);
-				write_file(argv[5], out);
+				write_file(argv[4], out);
 
 				clear_msg(m);
 				clear_msg(c);
@@ -55,13 +61,16 @@ int main(int argc, char **argv)
 			}
 			else
 			{
-				char *s = read_file(argv[5]);
+				printf("enter des decryption password:\n");
+				char pw[64];
+				scanf("%s", pw);
+				char *s = read_file(argv[4]);
 
-				u64 key = generate_key(argv[4]);
+				u64 key = generate_key(pw);
 				msg *m = hexa_to_msg(s);
 				msg *c = des(key, m);
 				char *out = msg_to_char(c);
-				write_file(argv[6], out);
+				write_file(argv[5], out);
 
 				clear_msg(m);
 				clear_msg(c);

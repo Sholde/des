@@ -25,8 +25,8 @@ Decrypt test.enc using :
 ### ALGORITHM
 
 One of these option :
-- <pre>-des</pre>
-- <pre>-3des</pre>
+- -des
+- -3des
 
 ### Verify
 

@@ -4,7 +4,7 @@
 
 #include "sdes.h"
 
-u64 generate_key(const char *s)
+u64 generate_key_des(const char *s)
 {
   u64 key = 0;
   int length = strlen(s);
@@ -17,13 +17,27 @@ u64 generate_key(const char *s)
   return key;
 }
 
-u48 *generate_sub_keys(const u48 key) {
+u64 *generate_key_3des(const char *s)
+{
+  u64 *key = malloc(sizeof(u64) * 3);
+  int length = strlen(s);
+  key[0] = 0; key[1] = 0; key[2] = 0;
+
+  for(int i = 0; i < length; i++)
+  {
+    key[(i%8)%3] ^= (s[i] << (8 * (i % 8)));
+  }
+
+  return key;
+}
+
+u48 *generate_sub_keys(const u64 key) {
   u48 *sub_keys = malloc(sizeof(u48) * 16);
 
   sub_keys[0] = key;
   for(int i = 1; i < 16; i++)
   {
-    sub_keys[i] = rrot64(key, i*4) % 0x3FFFFFFFFFFF;
+    sub_keys[i] = rrot64(key, i*4) % 0xFFFFFFFFFF;
   }
 
   return sub_keys;
@@ -31,6 +45,7 @@ u48 *generate_sub_keys(const u48 key) {
 
 u64 initial_permutation(const u64 n)
 {
+  printf("%lld\n", n);
   int tab[64] = { 58, 50, 42, 34, 26, 18, 10, 2,
                   60, 52, 44, 36, 28, 20, 12, 4,
                   62, 54, 46, 38, 30, 22, 14, 6,
@@ -45,7 +60,7 @@ u64 initial_permutation(const u64 n)
   for(int i = 0; i < 64; i++)
   {
     res <<= 1;
-    res ^= select_bit(n, tab[i]);
+    res ^= select_bit(n, tab[i], 64);
   }
 
   return res;
@@ -66,9 +81,9 @@ u64 initial_permutation_inverse(const u64 n)
   for(int i = 0; i < 64; i++)
   {
     res <<= 1;
-    res ^= select_bit(n, tab[i]);
+    res ^= select_bit(n, tab[i], 64);
   }
-
+  printf("%lld\n", res);
   return res;
 }
 
@@ -88,7 +103,7 @@ u48 expension(const u32 n)
   for(int i = 0; i < 48; i++)
   {
     res <<= 1;
-    res ^= select_bit(n, tab[i]);
+    res ^= select_bit(n, tab[i], 48);
   }
 
   return res;
@@ -181,7 +196,7 @@ u32 permutation(const u32 n)
   for(int i = 0; i < 32; i++)
   {
     res <<= 1;
-    res ^= select_bit(n, tab[i]);
+    res ^= select_bit(n, tab[i], 32);
   }
 
   return res;
@@ -192,8 +207,8 @@ u32 function_f(const u32 r0, const u48 sub_key)
   u48 r0_exp = expension(r0);
   r0_exp ^= sub_key;
   u32 res_s_box = s_box(r0_exp);
-  u32 res_perutation = permutation(res_s_box);
-  return res_perutation;
+  u32 res_permutation = permutation(res_s_box);
+  return res_permutation;
 }
 
 void one_turn(const u48 sub_key, u32 *l, u32 *r)
@@ -212,15 +227,16 @@ void exchange(u32 *l, u32 *r)
 
 u64 des_block(const u48 *sub_keys, const u64 input)
 {
-  initial_permutation(input);
-  u32 l = input >> 32;
-  u32 r = input & 0xFFFFFFFF;
+  u64 res = input;
+  initial_permutation(res);
+  u32 l = res >> 32;
+  u32 r = res & 0xFFFFFFFF;
   for(int i = 0; i < 16; i ++)
   {
     one_turn(sub_keys[i], &l, &r);
   }
   exchange(&l, &r);
-  u64 res = ((u64)l << 32) ^ r;
+  res = ((u64)l << 32) ^ r;
   initial_permutation_inverse(res);
   return res;
 }
@@ -245,7 +261,7 @@ msg *des(const u64 key, msg *input)
 
 char *encrypt_des(const char *pw, const char *input)
 {
-  u64 key = generate_key(pw);
+  u64 key = generate_key_des(pw);
   msg *m = char_to_msg(input);
   msg *c = des(key, m);
   char *out = msg_to_hexa(c);
@@ -258,7 +274,7 @@ char *encrypt_des(const char *pw, const char *input)
 
 char *decrypt_des(const char *pw, const char *input)
 {
-  u64 key = generate_key(pw);
+  u64 key = generate_key_des(pw);
   msg *m = hexa_to_msg(input);
   msg *d = des(key, m);
   char *out = msg_to_char(d);
@@ -266,5 +282,45 @@ char *decrypt_des(const char *pw, const char *input)
   free(m);
   free(d->tab);
   free(d);
+  return out;
+}
+
+char *encrypt_3des(const char *pw, const char *input)
+{
+  u64 *key = generate_key_3des(pw);
+  msg *m = char_to_msg(input);
+  msg *c0 = des(key[0], m);
+  msg *c1 = des(key[1], c0);
+  msg *c2 = des(key[2], c1);
+  char *out = msg_to_hexa(c2);
+  free(m->tab);
+  free(m);
+  free(c0->tab);
+  free(c0);
+  free(c1->tab);
+  free(c1);
+  free(c2->tab);
+  free(c2);
+  free(key);
+  return out;
+}
+
+char *decrypt_3des(const char *pw, const char *input)
+{
+  u64 *key = generate_key_3des(pw);
+  msg *m = hexa_to_msg(input);
+  msg *d0 = des(key[0], m);
+  msg *d1 = des(key[1], d0);
+  msg *d2 = des(key[2], d1);
+  char *out = msg_to_char(d2);
+  free(m->tab);
+  free(m);
+  free(d0->tab);
+  free(d0);
+  free(d1->tab);
+  free(d1);
+  free(d2->tab);
+  free(d2);
+  free(key);
   return out;
 }

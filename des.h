@@ -8,12 +8,14 @@
 #define rrot64(x, y) ((x >> y) ^ (x << (64 - y)))
 
 // Select bit and test it
-#define select_bit(x, y) ((x & ((u64)1 << (64 - y)))?1:0)
+#define select_bit(x, y, size) ((x & ((u64)1 << (size - y)))?1:0)
 
 // Function
-u64 generate_key(const char *s);
+u64 generate_key_des(const char *s);
 
-u48 *generate_sub_keys(const u48 key);
+u64 *generate_key_3des(const char *s);
+
+u48 *generate_sub_keys(const u64 key);
 
 u64 initial_permutation(const u64 n);
 
@@ -38,5 +40,9 @@ msg *des(const u64 key, msg *input);
 char *encrypt_des(const char *pw, const char *input);
 
 char *decrypt_des(const char *pw, const char *input);
+
+char *encrypt_3des(const char *pw, const char *input);
+
+char *decrypt_3des(const char *pw, const char *input);
 
 #endif // !_des_h

@@ -9,6 +9,8 @@
 
 int main(int argc, char **argv)
 {
+	int a = 0xFFFFFFFF;
+	printf("%d\n", select_bit(a, 1, 32));
 	if (argc < 2) {
 		printf("You must provide at least 1 parameter, where you specify the action.\n");
 		printf("Try : %s --help\n", argv[0]);
@@ -65,10 +67,35 @@ int main(int argc, char **argv)
 			return 1;
 		}
 	}
-	else if(strcmp(argv[2], "-3des") == 0)
+	else if(strcmp(argv[1], "-3des") == 0)
 	{
-		printf("Not yet implemented. Try : %s --help\n", argv[0]);
-		return 0;
+		if(strcmp(argv[2], "-e") == 0)
+		{
+			char pw[64];
+			printf("enter des encryption password:\n");
+			scanf("%s", pw);
+			char *s = read_file(argv[3]);
+			char *out = encrypt_3des(pw, s);
+			write_file(argv[4], out);
+			free(s);
+			free(out);
+		}
+		else if(strcmp(argv[2], "-d") == 0)
+		{
+			char pw[64];
+			printf("enter des decryption password:\n");
+			scanf("%s", pw);
+			char *s = read_file(argv[3]);
+			char *out = decrypt_3des(pw, s);
+			write_file(argv[4], out);
+			free(s);
+			free(out);
+		}
+		else
+		{
+			printf("Invalid action. Try : %s --help\n", argv[0]);
+			return 1;
+		}
 	}
 	else
 	{

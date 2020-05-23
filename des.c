@@ -102,7 +102,7 @@ u48 expension(const u32 n)
   for(int i = 0; i < 48; i++)
   {
     res <<= 1;
-    res ^= select_bit(n, tab[i], 48);
+    res ^= select_bit(n, tab[i], 32);
   }
 
   return res;
@@ -226,21 +226,20 @@ void exchange(u32 *l, u32 *r)
 
 u64 des_block(const u48 *sub_keys, const u64 input)
 {
-  u64 res = input;
-  initial_permutation(res);
+  u64 res = initial_permutation(input);
   u32 l = res >> 32;
   u32 r = res & 0xFFFFFFFF;
-  for(int i = 0; i < 16; i ++)
+  for(int i = 0; i < 16; i++)
   {
     one_turn(sub_keys[i], &l, &r);
   }
   exchange(&l, &r);
-  res = ((u64)l << 32) ^ r;
-  initial_permutation_inverse(res);
+  res = ((u64)l << 32) ^ (u64)r;
+  res = initial_permutation_inverse(res);
   return res;
 }
 
-msg *des(const u64 key, msg *input)
+msg *des(const u64 key, msg *input, u8 test)
 {
   msg *m = malloc(sizeof(msg));
   m->tab = malloc(sizeof(u64) * input->size);
@@ -250,7 +249,27 @@ msg *des(const u64 key, msg *input)
 
   for(int i = 0; i < m->size; i++)
   {
-    m->tab[i] = des_block(sub_keys, input->tab[i]);
+    u64 res = initial_permutation(input->tab[i]);
+    u32 l = res >> 32;
+    u32 r = res & 0xFFFFFFFF;
+    if(test)
+    {
+      for(int i = 15; i >= 0; i--)
+      {
+        one_turn(sub_keys[i], &l, &r);
+      }
+    }
+    else
+    {
+      for(int i = 0; i < 16; i++)
+      {
+        one_turn(sub_keys[i], &l, &r);
+      }
+    }
+    exchange(&l, &r);
+    res = ((u64)l << 32) ^ (u64)r;
+    res = initial_permutation_inverse(res);
+    m->tab[i] = res;
   }
 
   free(sub_keys);
@@ -262,7 +281,8 @@ char *encrypt_des(const char *pw, const char *input)
 {
   u64 key = generate_key_des(pw);
   msg *m = char_to_msg(input);
-  msg *c = des(key, m);
+  printf("%llu\n", m->tab[0]);
+  msg *c = des(key, m, 0);
   char *out = msg_to_hexa(c);
   free(m->tab);
   free(m);
@@ -275,7 +295,8 @@ char *decrypt_des(const char *pw, const char *input)
 {
   u64 key = generate_key_des(pw);
   msg *m = hexa_to_msg(input);
-  msg *d = des(key, m);
+  msg *d = des(key, m, 1);
+  printf("%llu\n", d->tab[0]);
   char *out = msg_to_char(d);
   free(m->tab);
   free(m);
@@ -288,9 +309,9 @@ char *encrypt_3des(const char *pw, const char *input)
 {
   u64 *key = generate_key_3des(pw);
   msg *m = char_to_msg(input);
-  msg *c0 = des(key[0], m);
-  msg *c1 = des(key[1], c0);
-  msg *c2 = des(key[2], c1);
+  msg *c0 = des(key[0], m, 0);
+  msg *c1 = des(key[1], c0, 0);
+  msg *c2 = des(key[2], c1, 0);
   char *out = msg_to_hexa(c2);
   free(m->tab);
   free(m);
@@ -308,9 +329,9 @@ char *decrypt_3des(const char *pw, const char *input)
 {
   u64 *key = generate_key_3des(pw);
   msg *m = hexa_to_msg(input);
-  msg *d0 = des(key[0], m);
-  msg *d1 = des(key[1], d0);
-  msg *d2 = des(key[2], d1);
+  msg *d0 = des(key[0], m, 1);
+  msg *d1 = des(key[1], d0, 1);
+  msg *d2 = des(key[2], d1, 1);
   char *out = msg_to_char(d2);
   free(m->tab);
   free(m);

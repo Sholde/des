@@ -9,8 +9,6 @@
 
 int main(int argc, char **argv)
 {
-	int a = 0xFFFFFFFF;
-	printf("%d\n", select_bit(a, 1, 32));
 	if (argc < 2) {
 		printf("You must provide at least 1 parameter, where you specify the action.\n");
 		printf("Try : %s --help\n", argv[0]);

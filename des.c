@@ -45,7 +45,6 @@ u48 *generate_sub_keys(const u64 key) {
 
 u64 initial_permutation(const u64 n)
 {
-  printf("%lld\n", n);
   int tab[64] = { 58, 50, 42, 34, 26, 18, 10, 2,
                   60, 52, 44, 36, 28, 20, 12, 4,
                   62, 54, 46, 38, 30, 22, 14, 6,
@@ -83,7 +82,7 @@ u64 initial_permutation_inverse(const u64 n)
     res <<= 1;
     res ^= select_bit(n, tab[i], 64);
   }
-  printf("%lld\n", res);
+  
   return res;
 }
 
@@ -161,21 +160,21 @@ u32 s_box(const u48 n)
   u8 s8 = n & 0x3F;
 
   u32 res = 0;
-  res = S1[(s1 >> 4) * 16 + (s1 & 0xF)];
+  res ^= S1[(s1 >> 4) * 16 + (s1 & 0xF)];
   res <<= 4;
-  res = S2[(s2 >> 4) * 16 + (s2 & 0xF)];
+  res ^= S2[(s2 >> 4) * 16 + (s2 & 0xF)];
   res <<= 4;
-  res = S3[(s3 >> 4) * 16 + (s3 & 0xF)];
+  res ^= S3[(s3 >> 4) * 16 + (s3 & 0xF)];
   res <<= 4;
-  res = S4[(s4 >> 4) * 16 + (s4 & 0xF)];
+  res ^= S4[(s4 >> 4) * 16 + (s4 & 0xF)];
   res <<= 4;
-  res = S5[(s5 >> 4) * 16 + (s5 & 0xF)];
+  res ^= S5[(s5 >> 4) * 16 + (s5 & 0xF)];
   res <<= 4;
-  res = S6[(s6 >> 4) * 16 + (s6 & 0xF)];
+  res ^= S6[(s6 >> 4) * 16 + (s6 & 0xF)];
   res <<= 4;
-  res = S7[(s7 >> 4) * 16 + (s7 & 0xF)];
+  res ^= S7[(s7 >> 4) * 16 + (s7 & 0xF)];
   res <<= 4;
-  res = S8[(s8 >> 4) * 16 + (s8 & 0xF)];
+  res ^= S8[(s8 >> 4) * 16 + (s8 & 0xF)];
 
   return res;
 }

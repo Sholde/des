@@ -1,11 +1,19 @@
+# Compile variable
 GCC=gcc
-CFLAGS=-std=c99 -Ofast
-WFLAGS=-g3 -Wall
+CFLAGS=-std=c99
+OFLAGS=-Ofast
+DFLAGS=-g3 -Wall
+
+# To clean
+EXE=des
+TXT=*.txt
+ENC=*.enc
+DEC=*.dec
 
 all : main
 
 main :
-	$(GCC) $(CFLAGS) $(WFLAGS) io.c convert.c des.c main.c -o des
+	$(GCC) $(CFLAGS) $(OFLAGS) $(DFLAGS) io.c convert.c des.c main.c -o $(EXE)
 
 clean :
-	rm -rf *.txt des
+	rm -rf $(EXE) $(TXT) $(ENC) $(DEC)

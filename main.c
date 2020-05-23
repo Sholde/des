@@ -9,10 +9,6 @@
 
 int main(int argc, char **argv)
 {
-	u48 test = 0xFFFFFFFFFFFF;
-  u32 res_s_box = s_box(test);
-  u32 res_permutation = permutation(res_s_box);
-	printf("%x\n", res_s_box);
 	if (argc < 2) {
 		printf("You must provide at least 1 parameter, where you specify the action.\n");
 		printf("Try : %s --help\n", argv[0]);

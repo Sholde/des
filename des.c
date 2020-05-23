@@ -310,6 +310,7 @@ char *encrypt_3des(const char *pw, const char *input)
   u48 *sub_keys0 = generate_sub_keys(key[0]);
   msg *c0 = des(sub_keys0, m);
   u48 *sub_keys1 = generate_sub_keys(key[1]);
+  rotate_sub_keys(sub_keys1);
   msg *c1 = des(sub_keys1, c0);
   u48 *sub_keys2 = generate_sub_keys(key[2]);
   msg *c2 = des(sub_keys2, c1);
@@ -334,10 +335,12 @@ char *decrypt_3des(const char *pw, const char *input)
   u64 *key = generate_key_3des(pw);
   msg *m = hexa_to_msg(input);
   u48 *sub_keys2 = generate_sub_keys(key[2]);
+  rotate_sub_keys(sub_keys2);
   msg *d2 = des(sub_keys2, m);
   u48 *sub_keys1 = generate_sub_keys(key[1]);
   msg *d1 = des(sub_keys1, d2);
   u48 *sub_keys0 = generate_sub_keys(key[0]);
+  rotate_sub_keys(sub_keys0);
   msg *d0 = des(sub_keys0, d1);
   char *out = msg_to_char(d0);
   free(m->tab);

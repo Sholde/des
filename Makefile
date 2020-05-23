@@ -11,7 +11,7 @@ OFLAGS=-Ofast
 DFLAGS=-g3 -Wall
 
 # C file
-MAIN_IN=io.c convert.c des.c main.c
+MAIN_IN=src/io.c src/convert.c src/des.c src/main.c
 
 # To clean
 EXE=des

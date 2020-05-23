@@ -37,63 +37,61 @@ int main(int argc, char **argv)
 		}
 	}
 
-	if(strcmp(argv[1], "enc") == 0)
+	if(strcmp(argv[1], "-des") == 0)
 	{
-		if(strcmp(argv[2], "-des") == 0)
+		if(strcmp(argv[2], "-e") == 0)
 		{
-			if(strcmp(argv[3], "-e") == 0)
-			{
-				printf("enter des encryption password:\n");
-				char pw[64];
-				scanf("%s", pw);
-				char *s = read_file(argv[4]);
+			printf("enter des encryption password:\n");
+			char pw[64];
+			scanf("%s", pw);
+			char *s = read_file(argv[3]);
 
-				u64 key = generate_key(pw);
-				msg *m = char_to_msg(s);
-				msg *c = des(key, m);
-				char *out = msg_to_hexa(c);
-				write_file(argv[5], out);
+			u64 key = generate_key(pw);
+			msg *m = char_to_msg(s);
+			msg *c = des(key, m);
+			char *out = msg_to_hexa(c);
+			write_file(argv[4], out);
 
-				clear_msg(m);
-				clear_msg(c);
-				free(s);
-				free(out);
-			}
-			else if(strcmp(argv[3], "-d") == 0)
-			{
-				printf("enter des decryption password:\n");
-				char pw[64];
-				scanf("%s", pw);
-				char *s = read_file(argv[4]);
+			clear_msg(m);
+			clear_msg(c);
+			free(s);
+			free(out);
+		}
+		else if(strcmp(argv[2], "-d") == 0)
+		{
+			printf("enter des decryption password:\n");
+			char pw[64];
+			scanf("%s", pw);
+			char *s = read_file(argv[3]);
 
-				u64 key = generate_key(pw);
-				msg *m = hexa_to_msg(s);
-				msg *c = des(key, m);
-				char *out = msg_to_char(c);
-				write_file(argv[5], out);
+			u64 key = generate_key(pw);
+			msg *m = hexa_to_msg(s);
+			msg *c = des(key, m);
+			char *out = msg_to_char(c);
+			write_file(argv[4], out);
 
-				clear_msg(m);
-				clear_msg(c);
-				free(s);
-				free(out);
-			}
-			else
-			{
-				printf("Invalid action. Try : %s --help\n", argv[0]);
+			clear_msg(m);
+			clear_msg(c);
+			free(s);
+			free(out);
+		}
+		else
+		{
+			printf("Invalid action. Try : %s --help\n", argv[0]);
 			return 1;
-			}
 		}
-		else if(strcmp(argv[2], "-3des") == 0)
-		{
-			printf("Not yet implemented. Try : %s --help\n", argv[0]);
-			return 0;
-		}
+	}
+	else if(strcmp(argv[2], "-3des") == 0)
+	{
+		printf("Not yet implemented. Try : %s --help\n", argv[0]);
+		return 0;
 	}
 	else
 	{
-		printf("Invalid action. Try : %s --help\n", argv[0]);
-		return 1;
+		printf("Bad algorithm. Try : %s --help\n", argv[0]);
+		return 0;
 	}
+	
 
 	return 0;
 }

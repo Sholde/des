@@ -1,6 +1,6 @@
 # DES
 
-It's a Data Encryption Standard algorithm in C.
+It's a Data Encryption Standard algorithm in C. This program use ASCII encoding for password and file character.
 
 ## Compile
 
@@ -8,19 +8,19 @@ It's a Data Encryption Standard algorithm in C.
 
 ## Usage
 
-This program use passwords to generate key.
+This program use passwords to generate keys.
 
 ### Encrypt
 
 Encrypt test.txt using :
 
-<pre>./des [ALGORITHM] enc -e test.txt test.enc</pre>
+<pre>./des [ALGORITHM] -e test.txt test.enc</pre>
 
 ### Decrypt
 
 Decrypt test.enc using :
 
-<pre>./des [ALGORITHM] enc -d test.enc test.dec</pre>
+<pre>./des [ALGORITHM] -d test.enc test.dec</pre>
 
 ### ALGORITHM
 

@@ -1,8 +1,17 @@
-# Compile variable
-GCC=gcc
+# Compiler variable
+CC=gcc
+
+# C flags
 CFLAGS=-std=c99
+
+# Compiler optimization
 OFLAGS=-Ofast
+
+# Debug
 DFLAGS=-g3 -Wall
+
+# C file
+MAIN_IN=io.c convert.c des.c main.c
 
 # To clean
 EXE=des
@@ -13,7 +22,7 @@ DEC=*.dec
 all : main
 
 main :
-	$(GCC) $(CFLAGS) $(OFLAGS) $(DFLAGS) io.c convert.c des.c main.c -o $(EXE)
+	$(CC) $(DFLAGS) $(CFLAGS) $(OFLAGS) $(MAIN_IN) -o $(EXE)
 
 clean :
 	rm -rf $(EXE) $(TXT) $(ENC) $(DEC)

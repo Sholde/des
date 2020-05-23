@@ -1,10 +1,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "struct.h"
-#include "convert.h"
+#include "sdes.h"
 
-msg *char_to_msg(char *s) {
+msg *char_to_msg(const char *s) {
 	int len = strlen(s);
 	msg *m = malloc(sizeof(msg));
 	
@@ -41,7 +40,7 @@ char *msg_to_char(msg *m) {
 	return ret;
 }
 
-msg *hexa_to_msg(char *s) {
+msg *hexa_to_msg(const char *s) {
 	int len = strlen(s);
 	msg *m = malloc(sizeof(msg));
 	

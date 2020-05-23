@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "struct.h"
-#include "des.h"
+#include "sdes.h"
 
 u64 generate_key(const char *s)
 {
@@ -242,4 +241,30 @@ msg *des(const u64 key, msg *input)
   free(sub_keys);
 
   return m;
+}
+
+char *encrypt_des(const char *pw, const char *input)
+{
+  u64 key = generate_key(pw);
+  msg *m = char_to_msg(input);
+  msg *c = des(key, m);
+  char *out = msg_to_hexa(c);
+  free(m->tab);
+  free(m);
+  free(c->tab);
+  free(c);
+  return out;
+}
+
+char *decrypt_des(const char *pw, const char *input)
+{
+  u64 key = generate_key(pw);
+  msg *m = hexa_to_msg(input);
+  msg *d = des(key, m);
+  char *out = msg_to_char(d);
+  free(m->tab);
+  free(m);
+  free(d->tab);
+  free(d);
+  return out;
 }

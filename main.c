@@ -2,18 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "struct.h"
-#include "des.h"
-#include "io.h"
-#include "convert.h"
+#include "sdes.h"
 
 #define RESET "\033[0m"
 #define BOLD "\033[1m"
-
-void clear_msg(msg *m) {
-    free(m->tab);
-    free(m);
-}
 
 int main(int argc, char **argv)
 {
@@ -37,41 +29,33 @@ int main(int argc, char **argv)
 		}
 	}
 
+	if(argc != 5)
+	{
+		printf("Invalid action. Try : %s --help\n", argv[0]);
+		return 1;
+	}
+
 	if(strcmp(argv[1], "-des") == 0)
 	{
 		if(strcmp(argv[2], "-e") == 0)
 		{
-			printf("enter des encryption password:\n");
 			char pw[64];
+			printf("enter des encryption password:\n");
 			scanf("%s", pw);
 			char *s = read_file(argv[3]);
-
-			u64 key = generate_key(pw);
-			msg *m = char_to_msg(s);
-			msg *c = des(key, m);
-			char *out = msg_to_hexa(c);
+			char *out = encrypt_des(pw, s);
 			write_file(argv[4], out);
-
-			clear_msg(m);
-			clear_msg(c);
 			free(s);
 			free(out);
 		}
 		else if(strcmp(argv[2], "-d") == 0)
 		{
-			printf("enter des decryption password:\n");
 			char pw[64];
+			printf("enter des decryption password:\n");
 			scanf("%s", pw);
 			char *s = read_file(argv[3]);
-
-			u64 key = generate_key(pw);
-			msg *m = hexa_to_msg(s);
-			msg *c = des(key, m);
-			char *out = msg_to_char(c);
+			char *out = decrypt_des(pw, s);
 			write_file(argv[4], out);
-
-			clear_msg(m);
-			clear_msg(c);
 			free(s);
 			free(out);
 		}

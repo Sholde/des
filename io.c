@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "sdes.h"
+
 void write_file(char *path, char *s) {
     FILE *f = fopen(path, "w");
 

@@ -35,4 +35,8 @@ u64 des_block(const u48 *sub_keys, const u64 input);
 
 msg *des(const u64 key, msg *input);
 
+char *encrypt_des(const char *pw, const char *input);
+
+char *decrypt_des(const char *pw, const char *input);
+
 #endif // !_des_h

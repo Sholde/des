@@ -30,10 +30,10 @@ Decrypt test.enc using :
 
 ### MORE
 
-| ALGORITM |
-| -------- |
-| `-des`   |
-| `-3des`  |
+| ALGORITHM |
+| --------- |
+| `-des`    |
+| `-3des`   |
 
 | Command  | Description |
 | -------- | ----------- |

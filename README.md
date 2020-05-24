@@ -1,6 +1,10 @@
 # DES
 
-It's a Data Encryption Standard algorithm in C. This program use ASCII encoding for password and file character.
+It's a C implementatin of Data Encryption Standard algorithm and Triple Data Encryption Standard algorithm.
+
+## Overview
+
+This program use ASCII encoding for password and file character. See ![ascii table](https://www.asciitable.com/). Don't use space in your password.
 
 ## Compile
 

@@ -4,6 +4,8 @@ It's a Data Encryption Standard algorithm in C. This program use ASCII encoding 
 
 ## Compile
 
+Compile using :
+
 ```
 make
 ```
@@ -28,7 +30,15 @@ Decrypt test.enc using :
 ./des [ALGORITHM] -d test.enc test.dec
 ```
 
-### MORE
+### Verify
+
+Verify if your decypher file is like your text file :
+
+```
+diff test.txt test.dec
+```
+
+## More
 
 | ALGORITHM |
 | --------- |
@@ -43,14 +53,10 @@ Decrypt test.enc using :
 | `-d`     | Decrypt |
 | `--help` | Show help |
 
-### Verify
+## Dependencies
 
-Verify if your decypher file is like your text file :
-
-```
-diff test.txt test.dec
-```
+`make` `gcc`
 
 ## Source
 
-The main source code is onlocated at : ![https://github.com/Sholde/des](https://github.com/Sholde/des "on Github")
+The main source code is onlocated at : ![https://github.com/Sholde/des](https://github.com/Sholde/des "On Github")

@@ -4,7 +4,7 @@ It's a C implementatin of Data Encryption Standard algorithm and Triple Data Enc
 
 ## Overview
 
-This program use ASCII encoding for password and file character. See ![ascii table](https://www.asciitable.com/). Don't use space in your password.
+This program use ASCII encoding for password and file character. See ![ascii table](http://www.asciitable.com). Don't use space in your password.
 
 ## Compile
 

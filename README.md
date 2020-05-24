@@ -16,7 +16,21 @@ make
 
 ## Usage
 
-This program use passwords to generate keys.
+### Demo
+
+```
+./des [ALGORITHM] [ACTION] [INPUT FILE] [OUTPUT FILE]
+```
+
+| ALGORITHM |
+| --------- |
+| `-des`    |
+| `-3des`   |
+
+| ACTION |
+| ------ |
+| `-e`   |
+| `-d`   |
 
 ### Encrypt
 
@@ -43,11 +57,6 @@ diff test.txt test.dec
 ```
 
 ## More
-
-| ALGORITHM |
-| --------- |
-| `-des`    |
-| `-3des`   |
 
 | Command  | Description |
 | -------- | ----------- |

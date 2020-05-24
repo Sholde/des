@@ -4,7 +4,7 @@ It's a C implementatin of Data Encryption Standard algorithm and Triple Data Enc
 
 ## Overview
 
-This program use ASCII encoding for password and file character. See ![ascii table](http://www.asciitable.com). Don't use space in your password.
+This program use ASCII encoding for password and file character. See [ascii table](http://www.asciitable.com). Don't use space in your password.
 
 ## Compile
 
@@ -63,4 +63,4 @@ diff test.txt test.dec
 
 ## Source
 
-The main source code is onlocated at : ![https://github.com/Sholde/des](https://github.com/Sholde/des "On Github")
+The main source code is onlocated at : [https://github.com/Sholde/des](https://github.com/Sholde/des "On Github")

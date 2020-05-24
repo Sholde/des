@@ -60,9 +60,9 @@ diff test.txt test.dec
 
 `make` `gcc`
 
-### License
+## License
 
-MIT License. See [details](https://github.com/Sholde/des/blob/master/LICENSE "License").
+Under MIT License. See [details](https://github.com/Sholde/des/blob/master/LICENSE "License").
 
 ## Source
 

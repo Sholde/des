@@ -13,10 +13,10 @@
 // Function
 
 /**
- * Clear msg struct
+ * Clear des_t struct
  * @param m : message to clear
  */
-void clear_msg(msg *m);
+void clear_des(des_t *m);
 
 /**
  * Swap two 32 bits number
@@ -101,11 +101,11 @@ u32 function_f(const u32 r0, const u48 sub_key);
 u64 des_block(const u48 *sub_keys, const u64 input);
 
 /**
- * Apply des on msg
+ * Apply des on des_t
  * @param sub_keys : sub keys
- * @param input : msg
+ * @param input : des_t
  */
-msg *des(const u48 *sub_keys, msg *input);
+des_t *des(const u48 *sub_keys, des_t *input);
 
 /**
  * Encrypt a string with des

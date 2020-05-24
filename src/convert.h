@@ -1,12 +1,8 @@
 #ifndef _convert_h
 #define _convert_h
 
-msg *char_to_msg(const char *s);
+des_t *des_set_str(const char *s, const char *type);
 
-char *msg_to_char(msg *m);
-
-msg *hexa_to_msg(const char *s);
-
-char *msg_to_hexa(msg *m);
+char *des_get_str(des_t *m, const char *type);
 
 #endif // !_convert_h

@@ -10,6 +10,6 @@ typedef long long unsigned u64;
 typedef struct {
   u64 *tab;
   u64 size;
-} msg;
+} des_t;
 
 #endif // !_struct_h

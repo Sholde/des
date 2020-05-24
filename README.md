@@ -4,7 +4,7 @@ It's a Data Encryption Standard algorithm in C. This program use ASCII encoding 
 
 ## Compile
 
-<pre>make</pre>
+```make```
 
 ## Usage
 
@@ -14,24 +14,33 @@ This program use passwords to generate keys.
 
 Encrypt test.txt using :
 
-<pre>./des [ALGORITHM] -e test.txt test.enc</pre>
+```./des [ALGORITHM] -e test.txt test.enc```
 
 ### Decrypt
 
 Decrypt test.enc using :
 
-<pre>./des [ALGORITHM] -d test.enc test.dec</pre>
+```./des [ALGORITHM] -d test.enc test.dec```
 
-### ALGORITHM
+### MORE
 
-One of these option :
-- -des
-- -3des
+| ALGORITM |
+| -------- |
+| `-des`   |
+| `-3des`  |
+
+| Command | Description |
+| ------- | ----------- |
+| -des    | Data Standard algorithm |
+| -3des   | Triple Data Standard algorithm |
+| -e      | Encrypt |
+| -d      | Decrypt |
+| -help   | Show help |
 
 ### Verify
 
-<pre>diff test.txt test.dec</pre>
+```diff test.txt test.dec```
 
 ## Source
 
-The main source code is on : <url>https://github.com/Sholde/des</url>
+The main source code is onlocated at : ![https://github.com/Sholde/des](https://github.com/Sholde/des "on Github")

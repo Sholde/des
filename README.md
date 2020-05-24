@@ -36,7 +36,7 @@ Decrypt test.enc using :
 
 ### Verify
 
-Verify if your decypher file is like your text file :
+Verify if your decrypted file is like your text file :
 
 ```
 diff test.txt test.dec

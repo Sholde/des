@@ -16,7 +16,7 @@
  * Clear des_t struct
  * @param m : message to clear
  */
-void clear_des(des_t *m);
+void des_free(des_t *m);
 
 /**
  * Swap two 32 bits number

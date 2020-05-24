@@ -4,7 +4,7 @@
 
 #include "sdes.h"
 
-void clear_des(des_t *m) 
+void des_free(des_t *m) 
 {
   free(m->tab);
   free(m);
@@ -334,10 +334,10 @@ char *encrypt_3des(const char *pw, const char *input)
   char *out = des_get_str(c2, "hexa");
 
   // Clear
-  clear_des(m);
-  clear_des(c0);
-  clear_des(c1);
-  clear_des(c2);
+  des_free(m);
+  des_free(c0);
+  des_free(c1);
+  des_free(c2);
   free(key);
   free(sub_keys0);
   free(sub_keys1);
@@ -365,10 +365,10 @@ char *decrypt_3des(const char *pw, const char *input)
   char *out = des_get_str(d0, "str");
 
   // Clear
-  clear_des(m);
-  clear_des(d0);
-  clear_des(d1);
-  clear_des(d2);
+  des_free(m);
+  des_free(d0);
+  des_free(d1);
+  des_free(d2);
   free(key);
   free(sub_keys0);
   free(sub_keys1);

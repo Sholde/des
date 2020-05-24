@@ -1,10 +1,10 @@
 # DES
 
-It's a C implementatin of Data Encryption Standard algorithm and Triple Data Encryption Standard algorithm.
+It's a C implementation of Data Encryption Standard algorithm and Triple Data Encryption Standard algorithm.
 
 ## Overview
 
-This program use ASCII encoding for password and file character. See [ascii table](http://www.asciitable.com). Don't use space in your password.
+This program use ASCII encoding for password and file character. See [ASCII table](http://www.asciitable.com). Don't use space in your password.
 
 ## Compile
 
@@ -59,6 +59,10 @@ diff test.txt test.dec
 ## Dependencies
 
 `make` `gcc`
+
+### License
+
+MIT License. See [details](https://github.com/Sholde/des/blob/master/LICENSE "License").
 
 ## Source
 

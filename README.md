@@ -22,15 +22,15 @@ make
 ./des [ALGORITHM] [ACTION] [INPUT FILE] [OUTPUT FILE]
 ```
 
-| ALGORITHM |
-| --------- |
-| `-des`    |
-| `-3des`   |
+| ALGORITHM | Description |
+| --------- | ----------- |
+| `-des`    | Data Standard algorithm |
+| `-3des`   | Triple Data Standard algorithm |
 
-| ACTION |
-| ------ |
-| `-e`   |
-| `-d`   |
+| ACTION | Description |
+| ------ | ----------- |
+| `-e`   | Encrypt |
+| `-d`   | Decrypt |
 
 ### Encrypt
 
@@ -55,16 +55,6 @@ Verify if your decrypted file is like your text file :
 ```
 diff test.txt test.dec
 ```
-
-## More
-
-| Command  | Description |
-| -------- | ----------- |
-| `-des`   | Data Standard algorithm |
-| `-3des`  | Triple Data Standard algorithm |
-| `-e `    | Encrypt |
-| `-d`     | Decrypt |
-| `--help` | Show help |
 
 ## Dependencies
 

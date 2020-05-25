@@ -143,29 +143,29 @@ des_t *des(const u48 *sub_keys, des_t *input);
 /**
  * Encrypt a string with des
  * @param pw : password
- * @param input : string
+ * @param message : string
  */
-char *encrypt_des(const char *pw, const char *input);
+char *encrypt_des(const char *pw, const char *message);
 
 /**
  * Decrypt a string with des
  * @param pw : password
- * @param input : string
+ * @param cipher : string
  */
-char *decrypt_des(const char *pw, const char *input);
+char *decrypt_des(const char *pw, const char *cipher);
 
 /**
  * Encrypt a string with 3des
  * @param pw : password
- * @param input : string
+ * @param message : string
  */
-char *encrypt_3des(const char *pw, const char *input);
+char *encrypt_3des(const char *pw, const char *message);
 
 /**
  * Decrypt a string with 3des
  * @param pw : password
- * @param input : string
+ * @param cipher : string
  */
-char *decrypt_3des(const char *pw, const char *input);
+char *decrypt_3des(const char *pw, const char *cipher);
 
 #endif // !_des_h

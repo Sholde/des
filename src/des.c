@@ -280,51 +280,47 @@ des_t *des(const u48 *sub_keys, des_t *input)
   return m;
 }
 
-char *encrypt_des(const char *pw, const char *input)
+char *encrypt_des(const char *pw, const char *message)
 {
   u64 key = generate_key_des(pw);
   u48 *sub_keys = generate_sub_keys(key);
 
-  des_t *m = des_set_str(input, "str");
+  des_t *m = des_set_str(message, "str");
   des_t *c = des(sub_keys, m);
 
-  char *out = des_get_str(c, "hexa");
+  char *cipher = des_get_str(c, "hexa");
 
   // Clear
-  free(m->tab);
-  free(m);
-  free(c->tab);
-  free(c);
+  des_free(m);
+  des_free(c);
   free(sub_keys);
 
-  return out;
+  return cipher;
 }
 
-char *decrypt_des(const char *pw, const char *input)
+char *decrypt_des(const char *pw, const char *cipher)
 {
   u64 key = generate_key_des(pw);
   u48 *sub_keys = generate_sub_keys(key);
   rotate_sub_keys(sub_keys);
 
-  des_t *m = des_set_str(input, "hexa");
-  des_t *d = des(sub_keys, m);
+  des_t *c = des_set_str(cipher, "hexa");
+  des_t *d = des(sub_keys, c);
 
-  char *out = des_get_str(d, "str");
+  char *decipher = des_get_str(d, "str");
 
   // Clear
-  free(m->tab);
-  free(m);
-  free(d->tab);
-  free(d);
+  des_free(c);
+  des_free(d);
   free(sub_keys);
 
-  return out;
+  return decipher;
 }
 
-char *encrypt_3des(const char *pw, const char *input)
+char *encrypt_3des(const char *pw, const char *message)
 {
   u64 *key = generate_key_3des(pw);
-  des_t *m = des_set_str(input, "str");
+  des_t *m = des_set_str(message, "str");
 
   u48 *sub_keys0 = generate_sub_keys(key[0]);
   des_t *c0 = des(sub_keys0, m);
@@ -336,7 +332,7 @@ char *encrypt_3des(const char *pw, const char *input)
   u48 *sub_keys2 = generate_sub_keys(key[2]);
   des_t *c2 = des(sub_keys2, c1);
 
-  char *out = des_get_str(c2, "hexa");
+  char *cipher = des_get_str(c2, "hexa");
 
   // Clear
   des_free(m);
@@ -348,13 +344,13 @@ char *encrypt_3des(const char *pw, const char *input)
   free(sub_keys1);
   free(sub_keys2);
 
-  return out;
+  return cipher;
 }
 
-char *decrypt_3des(const char *pw, const char *input)
+char *decrypt_3des(const char *pw, const char *cipher)
 {
   u64 *key = generate_key_3des(pw);
-  des_t *m = des_set_str(input, "hexa");
+  des_t *m = des_set_str(cipher, "hexa");
 
   u48 *sub_keys2 = generate_sub_keys(key[2]);
   rotate_sub_keys(sub_keys2);
@@ -367,7 +363,7 @@ char *decrypt_3des(const char *pw, const char *input)
   rotate_sub_keys(sub_keys0);
   des_t *d0 = des(sub_keys0, d1);
 
-  char *out = des_get_str(d0, "str");
+  char *decipher = des_get_str(d0, "str");
 
   // Clear
   des_free(m);
@@ -379,5 +375,5 @@ char *decrypt_3des(const char *pw, const char *input)
   free(sub_keys1);
   free(sub_keys2);
 
-  return out;
+  return decipher;
 }

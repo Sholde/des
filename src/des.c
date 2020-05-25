@@ -84,6 +84,14 @@ const int P[32] =  {16,  7, 20, 21,
 
 /* Function */
 
+des_t *des_init(u64 size)
+{
+  des_t *m = malloc(sizeof(des_t));
+  m->tab = malloc(sizeof(u64) * size);
+  m->size = size;
+  return m;
+}
+
 void des_free(des_t *d) 
 {
   free(d->tab);
@@ -268,9 +276,7 @@ u64 des_block(const u48 *sub_keys, const u64 input)
 
 des_t *des(const u48 *sub_keys, des_t *input)
 {
-  des_t *m = malloc(sizeof(des_t));
-  m->tab = malloc(sizeof(u64) * input->size);
-  m->size = input->size;
+  des_t *m = des_init(input->size);
 
   for(int i = 0; i < m->size; i++)
   {

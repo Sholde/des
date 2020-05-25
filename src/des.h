@@ -46,6 +46,12 @@ extern const int P[32];
 /* Function */
 
 /**
+ * Init des_t struct with a size
+ * @param size : size in bits of des_t to init
+ */
+des_t *des_init(u64 size);
+
+/**
  * Clear des_t struct
  * @param d : des_t to clear
  */

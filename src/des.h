@@ -3,18 +3,18 @@
 
 /* Global tab */
 
-extern int IP[64];
-extern int IP_1[64];
-extern int E[48];
-extern int S1[64];
-extern int S2[64];
-extern int S3[64];
-extern int S4[64];
-extern int S5[64];
-extern int S6[64];
-extern int S7[64];
-extern int S8[64];
-extern int P[32];
+extern const int IP[64];
+extern const int IP_1[64];
+extern const int E[48];
+extern const int S1[64];
+extern const int S2[64];
+extern const int S3[64];
+extern const int S4[64];
+extern const int S5[64];
+extern const int S6[64];
+extern const int S7[64];
+extern const int S8[64];
+extern const int P[32];
 
 /* Macro*/
 

@@ -1,22 +1,55 @@
 #ifndef _des_h
 #define _des_h
 
-// Left rot
+/* Global tab */
+
+extern int IP[64];
+extern int IP_1[64];
+extern int E[48];
+extern int S1[64];
+extern int S2[64];
+extern int S3[64];
+extern int S4[64];
+extern int S5[64];
+extern int S6[64];
+extern int S7[64];
+extern int S8[64];
+extern int P[32];
+
+/* Macro*/
+
+/**
+ * Left rotation for 64 bits number
+ * @param x : number to rotate
+ * @param y : number of bits to rotate the number x
+ * @return the number x rotate
+ */
 #define lrot64(x, y) ((x << y) ^ (x >> (64 - y)))
 
-// Right rot
+/**
+ * Right rotation for 64 bits number
+ * @param x : number to rotate
+ * @param y : number of bits to rotate the number x
+ * @return the number x rotate
+ */
 #define rrot64(x, y) ((x >> y) ^ (x << (64 - y)))
 
-// Select bit and test it
-#define select_bit(x, y, size) (((u64)x & ((u64)1 << (size - y)))?1:0)
+/**
+ * Test bit at position size - y
+ * @param x : number to test
+ * @param y : position
+ * @param size : size in bits of number x
+ * @return the bit at position size - y
+ */
+#define des_test_bit(x, y, size) (((u64)x & ((u64)1 << (size - y)))?1:0)
 
-// Function
+/* Function */
 
 /**
  * Clear des_t struct
- * @param m : message to clear
+ * @param d : des_t to clear
  */
-void des_free(des_t *m);
+void des_free(des_t *d);
 
 /**
  * Swap two 32 bits number

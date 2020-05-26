@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "sdes.h"
+#include "io.h"
 
 #define RESET "\033[0m"
 #define BOLD "\033[1m"

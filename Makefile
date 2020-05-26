@@ -2,7 +2,7 @@
 CC=gcc
 
 # C flags
-CFLAGS=-std=c99
+CFLAGS=-fPIC -shared
 
 # Compiler optimization
 OFLAGS=-Ofast
@@ -10,19 +10,34 @@ OFLAGS=-Ofast
 # Debug
 DFLAGS=-g3 -Wall
 
+# Library flags
+LFLAGS=-lsdes
+
+LIB_IN=src/sdes.c
+LIB_OUT=libsdes.so
+
 # C file
-MAIN_IN=src/io.c src/convert.c src/des.c src/main.c
+MAIN_IN=src/io.c src/sdes.c src/main.c
 
 # To clean
-EXE=des
+MAIN_OUT=sdes
 TXT=*.txt
 ENC=*.enc
 DEC=*.dec
+LIB=*.a
+OBJ=*.o
+SO=*.so
 
-all : main
+.PHONY : all lib main clean
+
+all : lib main
+
+lib :
+	$(CC) $(DFLAGS) $(CFLAGS) $(OFLAGS) $(LIB_IN) -o $(LIB_OUT)
 
 main :
-	$(CC) $(DFLAGS) $(CFLAGS) $(OFLAGS) $(MAIN_IN) -o $(EXE)
+	$(shell ./configure.sh)
+	$(CC) $(DFLAGS) $(LFLAGS) $(OFLAGS) $(MAIN_IN) -o $(MAIN_OUT)
 
 clean :
-	rm -rf $(EXE) $(TXT) $(ENC) $(DEC)
+	rm -rf $(EXE) $(TXT) $(ENC) $(DEC) $(LIB) $(OBJ) $(SO)

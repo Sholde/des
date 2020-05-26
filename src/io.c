@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "sdes.h"
+#include "io.h"
 
 void write_file(char *path, char *s)
 {

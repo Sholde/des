@@ -1,4 +1,7 @@
 *.txt
 *.enc
 *.dec
-des
+sdes
+*.o
+*.a
+*.so

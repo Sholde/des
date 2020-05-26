@@ -9,7 +9,7 @@ sudo chmod 0666 /usr/include/sdes.h
 cd ..
 
 # Update cache
-ldconfig
+#ldconfig
 
 # Clear our LD_LIBRARY_PATH
 unset LD_LIBRARY_PATH

@@ -6,6 +6,10 @@ It's a C implementation of Data Encryption Standard algorithm and Triple Data En
 
 This program use ASCII encoding for password and file character. See [ASCII table](http://www.asciitable.com). Don't use space in your password.
 
+## Important note
+
+Makefile setup library in your computer if you have debian system. See Lib chapter.
+
 ## Compile
 
 Compile using :
@@ -19,7 +23,7 @@ make
 ### Demo
 
 ```
-./des [ALGORITHM] [ACTION] [INPUT FILE] [OUTPUT FILE]
+./sdes [ALGORITHM] [ACTION] [INPUT FILE] [OUTPUT FILE]
 ```
 
 | ALGORITHM | Description |
@@ -37,7 +41,7 @@ make
 Encrypt test.txt using :
 
 ```
-./des [ALGORITHM] -e test.txt test.enc
+./sdes [ALGORITHM] -e test.txt test.enc
 ```
 
 ### Decrypt
@@ -45,7 +49,7 @@ Encrypt test.txt using :
 Decrypt test.enc using :
 
 ```
-./des [ALGORITHM] -d test.enc test.dec
+./sdes [ALGORITHM] -d test.enc test.dec
 ```
 
 ### Verify
@@ -54,6 +58,14 @@ Verify if your decrypted file is like your text file :
 
 ```
 diff test.txt test.dec
+```
+
+## Library
+
+`make` command create a library and install it on your computer if you have a Debian OS. To use the library in your own project, use :
+
+```
+#include "sdes.h"
 ```
 
 ## Dependencies

@@ -50,7 +50,7 @@ diff test.txt test.dec
 
 ### Install
 
-Assure you have compile. See Compile section.
+Make sure you have compile. See Compile section.
 
 Install library using :
 
@@ -58,7 +58,7 @@ Install library using :
 ./install.sh
 ```
 
-This work only for Debian system.
+It's work only on Debian system.
 
 ### Usage
 
@@ -78,7 +78,7 @@ Delete library using :
 ./delete.sh
 ```
 
-This work only for Debian system.
+It's work only on Debian system.
 
 
 ## Dependencies

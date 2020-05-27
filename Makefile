@@ -16,11 +16,10 @@ LFLAGS=-lsdes
 LIB_IN=src/sdes.c
 LIB_OUT=libsdes.so
 
-# C file
 MAIN_IN=src/io.c src/sdes.c src/main.c
+MAIN_OUT=sdes
 
 # To clean
-MAIN_OUT=sdes
 TXT=*.txt
 ENC=*.enc
 DEC=*.dec
@@ -36,7 +35,7 @@ lib :
 	$(CC) $(DFLAGS) $(CFLAGS) $(OFLAGS) $(LIB_IN) -o $(LIB_OUT)
 
 main :
-	$(shell ./configure.sh)
+	$(shell ./install.sh)
 	$(CC) $(DFLAGS) $(LFLAGS) $(OFLAGS) $(MAIN_IN) -o $(MAIN_OUT)
 
 clean :

@@ -107,7 +107,7 @@ des_t *des_set_str(const char *s, const char *type)
     m->tab[count] <<= 64 - (len * 8) % 64;
     return m;
   }
-  else if(strcmp(type, "hexa") == 0)
+  else if(strcmp(type, "hex") == 0)
   {
     int len = strlen(s);
     des_t *m = malloc(sizeof(des_t));
@@ -163,7 +163,7 @@ char *des_get_str(des_t *m, const char *type)
     }
     return ret;
   }
-  else if(strcmp(type, "hexa") == 0)
+  else if(strcmp(type, "hex") == 0)
   {
     int len = m->size * 16;
 
@@ -367,7 +367,7 @@ char *encrypt_des(const char *pw, const char *message)
   des_t *m = des_set_str(message, "str");
   des_t *c = des(sub_keys, m);
 
-  char *cipher = des_get_str(c, "hexa");
+  char *cipher = des_get_str(c, "hex");
 
   // Clear
   des_free(m);
@@ -383,7 +383,7 @@ char *decrypt_des(const char *pw, const char *cipher)
   u48 *sub_keys = generate_sub_keys(key);
   rotate_sub_keys(sub_keys);
 
-  des_t *c = des_set_str(cipher, "hexa");
+  des_t *c = des_set_str(cipher, "hex");
   des_t *d = des(sub_keys, c);
 
   char *decipher = des_get_str(d, "str");
@@ -411,7 +411,7 @@ char *encrypt_3des(const char *pw, const char *message)
   u48 *sub_keys2 = generate_sub_keys(key[2]);
   des_t *c2 = des(sub_keys2, c1);
 
-  char *cipher = des_get_str(c2, "hexa");
+  char *cipher = des_get_str(c2, "hex");
 
   // Clear
   des_free(m);
@@ -429,7 +429,7 @@ char *encrypt_3des(const char *pw, const char *message)
 char *decrypt_3des(const char *pw, const char *cipher)
 {
   u64 *key = generate_key_3des(pw);
-  des_t *m = des_set_str(cipher, "hexa");
+  des_t *m = des_set_str(cipher, "hex");
 
   u48 *sub_keys2 = generate_sub_keys(key[2]);
   rotate_sub_keys(sub_keys2);

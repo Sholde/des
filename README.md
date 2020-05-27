@@ -36,22 +36,6 @@ make
 | `-e`   | Encrypt |
 | `-d`   | Decrypt |
 
-### Encrypt
-
-Encrypt test.txt using :
-
-```
-./sdes [ALGORITHM] -e test.txt test.enc
-```
-
-### Decrypt
-
-Decrypt test.enc using :
-
-```
-./sdes [ALGORITHM] -d test.enc test.dec
-```
-
 ### Verify
 
 Verify if your decrypted file is like your text file :

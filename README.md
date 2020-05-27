@@ -46,11 +46,40 @@ diff test.txt test.dec
 
 ## Library
 
-`make` command create a library and install it on your computer if you have a Debian OS. To use the library in your own project, use :
+`make` command create a library.
+
+### Install
+
+Assure you have compile. See Compile section.
+
+Install library using :
+
+```
+./install.sh
+```
+
+This work only for Debian system.
+
+### Usage
+
+To use the library in your own project, use :
 
 ```
 #include "sdes.h"
 ```
+
+And use option `-lsdes` when you compile.
+
+### Delete
+
+Delete library using :
+
+```
+./delete.sh
+```
+
+This work only for Debian system.
+
 
 ## Dependencies
 

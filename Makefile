@@ -35,8 +35,7 @@ lib :
 	$(CC) $(DFLAGS) $(CFLAGS) $(OFLAGS) $(LIB_IN) -o $(LIB_OUT)
 
 main :
-	$(shell ./install.sh)
-	$(CC) $(DFLAGS) $(LFLAGS) $(OFLAGS) $(MAIN_IN) -o $(MAIN_OUT)
+	$(CC) $(DFLAGS) $(OFLAGS) $(MAIN_IN) -o $(MAIN_OUT)
 
 clean :
 	rm -rf $(EXE) $(TXT) $(ENC) $(DEC) $(LIB) $(OBJ) $(SO)

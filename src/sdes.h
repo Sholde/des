@@ -1,7 +1,8 @@
 #ifndef _des_h
 #define _des_h
 
-// Typedef
+/* Typedef */
+
 typedef unsigned char u8;
 typedef unsigned int u32;
 typedef long unsigned u48;
@@ -85,18 +86,11 @@ des_t *des_init(u64 size);
 void des_free(des_t *d);
 
 /**
- * Swap two 32 bits number
- * @param l : 32 bits number
- * @param r : 32 bits number
+ * Swap two 64 bits number
+ * @param a : 64 bits number
+ * @param b : 64 bits number
  */
-void swap_32(u32 *l, u32 *r);
-
-/**
- * Swap two 48 bits number
- * @param a : 48 bits number
- * @param b : 48 bits number
- */
-void swap_48(u48 *a, u48 *b);
+void swap(u64 *a, u64 *b);
 
 /**
  * Generate the main des key

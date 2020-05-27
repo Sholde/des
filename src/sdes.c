@@ -210,16 +210,9 @@ void des_free(des_t *d)
   free(d);
 }
 
-void swap_32(u32 *l, u32 *r)
+void swap(u64 *a, u64 *b)
 {
-  u32 tmp = *l;
-  *l = *r;
-  *r = tmp;
-}
-
-void swap_48(u48 *a, u48 *b)
-{
-  u48 tmp = *a;
+  u64 tmp = *a;
   *a = *b;
   *b = tmp;
 }
@@ -265,14 +258,14 @@ u48 *generate_sub_keys(const u64 key) {
 
 void rotate_sub_keys(u48 *sub_keys)
 {
-  swap_48(&sub_keys[0], &sub_keys[15]);
-  swap_48(&sub_keys[1], &sub_keys[14]);
-  swap_48(&sub_keys[2], &sub_keys[13]);
-  swap_48(&sub_keys[3], &sub_keys[12]);
-  swap_48(&sub_keys[4], &sub_keys[11]);
-  swap_48(&sub_keys[5], &sub_keys[10]);
-  swap_48(&sub_keys[6], &sub_keys[9]);
-  swap_48(&sub_keys[7], &sub_keys[8]);
+  swap(&sub_keys[0], &sub_keys[15]);
+  swap(&sub_keys[1], &sub_keys[14]);
+  swap(&sub_keys[2], &sub_keys[13]);
+  swap(&sub_keys[3], &sub_keys[12]);
+  swap(&sub_keys[4], &sub_keys[11]);
+  swap(&sub_keys[5], &sub_keys[10]);
+  swap(&sub_keys[6], &sub_keys[9]);
+  swap(&sub_keys[7], &sub_keys[8]);
 }
 
 u64 initial_permutation(const u64 n)
@@ -380,7 +373,7 @@ u64 des_block(const u48 *sub_keys, const u64 input)
     l = tmp;
   }
 
-  swap_32(&l, &r);
+  swap(&l, &r);
   res = ((u64)l << 32) ^ (u64)r;
   res = initial_permutation_inverse(res);
   return res;

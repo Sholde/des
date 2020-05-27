@@ -86,11 +86,18 @@ des_t *des_init(u64 size);
 void des_free(des_t *d);
 
 /**
- * Swap two 64 bits number
- * @param a : 64 bits number
- * @param b : 64 bits number
+ * Swap two 32 bits number
+ * @param l : 32 bits number
+ * @param r : 32 bits number
  */
-void swap(u64 *a, u64 *b);
+void swap_32(u32 *l, u32 *r);
+
+/**
+ * Swap two 48 bits number
+ * @param a : 48 bits number
+ * @param b : 48 bits number
+ */
+void swap_48(u48 *a, u48 *b);
 
 /**
  * Generate the main des key
@@ -117,24 +124,6 @@ u48 *generate_sub_keys(const u64 key);
 void rotate_sub_keys(u48 *sub_keys);
 
 /**
- * Initial permutation
- * @param n : input to permute
- */
-u64 initial_permutation(const u64 n);
-
-/**
- * Initial permutation inverse
- * @param n : input to permute
- */
-u64 initial_permutation_inverse(const u64 n);
-
-/**
- * Extand a 32 bits number to 48 bits
- * @param n : number to extand
- */
-u48 expension(const u32 n);
-
-/**
  * S-box
  * @param n : input of s-box
  */
@@ -144,7 +133,7 @@ u32 s_box(const u48 n);
  * Permutation
  * @param n : input to permute
  */
-u32 permutation(const u32 n);
+u64 permutation(const int *tab, const u64 n, const int size);
 
 /**
  * Function f

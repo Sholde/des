@@ -210,9 +210,16 @@ void des_free(des_t *d)
   free(d);
 }
 
-void swap(u64 *a, u64 *b)
+void swap_32(u32 *l, u32 *r)
 {
-  u64 tmp = *a;
+  u32 tmp = *l;
+  *l = *r;
+  *r = tmp;
+}
+
+void swap_48(u48 *a, u48 *b)
+{
+  u48 tmp = *a;
   *a = *b;
   *b = tmp;
 }
@@ -258,53 +265,14 @@ u48 *generate_sub_keys(const u64 key) {
 
 void rotate_sub_keys(u48 *sub_keys)
 {
-  swap(&sub_keys[0], &sub_keys[15]);
-  swap(&sub_keys[1], &sub_keys[14]);
-  swap(&sub_keys[2], &sub_keys[13]);
-  swap(&sub_keys[3], &sub_keys[12]);
-  swap(&sub_keys[4], &sub_keys[11]);
-  swap(&sub_keys[5], &sub_keys[10]);
-  swap(&sub_keys[6], &sub_keys[9]);
-  swap(&sub_keys[7], &sub_keys[8]);
-}
-
-u64 initial_permutation(const u64 n)
-{
-  u64 res = 0;
-
-  for(int i = 0; i < 64; i++)
-  {
-    res <<= 1;
-    res ^= des_test_bit(n, IP[i], 64);
-  }
-
-  return res;
-}
-
-u64 initial_permutation_inverse(const u64 n)
-{
-  u64 res = 0;
-
-  for(int i = 0; i < 64; i++)
-  {
-    res <<= 1;
-    res ^= des_test_bit(n, IP_1[i], 64);
-  }
-  
-  return res;
-}
-
-u48 expension(const u32 n)
-{ 
-  u48 res = 0;
-
-  for(int i = 0; i < 48; i++)
-  {
-    res <<= 1;
-    res ^= des_test_bit(n, E[i], 32);
-  }
-
-  return res;
+  swap_48(&sub_keys[0], &sub_keys[15]);
+  swap_48(&sub_keys[1], &sub_keys[14]);
+  swap_48(&sub_keys[2], &sub_keys[13]);
+  swap_48(&sub_keys[3], &sub_keys[12]);
+  swap_48(&sub_keys[4], &sub_keys[11]);
+  swap_48(&sub_keys[5], &sub_keys[10]);
+  swap_48(&sub_keys[6], &sub_keys[9]);
+  swap_48(&sub_keys[7], &sub_keys[8]);
 }
 
 u32 s_box(const u48 n)
@@ -338,14 +306,14 @@ u32 s_box(const u48 n)
   return res;
 }
 
-u32 permutation(const u32 n)
+u64 permutation(const int *tab, const u64 n, const int size)
 {  
-  u32 res = 0;
+  u64 res = 0;
 
-  for(int i = 0; i < 32; i++)
+  for(int i = 0; i < size; i++)
   {
     res <<= 1;
-    res ^= des_test_bit(n, P[i], 32);
+    res ^= des_test_bit(n, tab[i], size);
   }
 
   return res;
@@ -353,16 +321,16 @@ u32 permutation(const u32 n)
 
 u32 function_f(const u32 r0, const u48 sub_key)
 {
-  u48 r0_exp = expension(r0);
+  u48 r0_exp = permutation(E, r0, 48);
   r0_exp ^= sub_key;
   u32 res_s_box = s_box(r0_exp);
-  u32 res_permutation = permutation(res_s_box);
+  u32 res_permutation = permutation(P, res_s_box, 32);
   return res_permutation;
 }
 
 u64 des_block(const u48 *sub_keys, const u64 input)
 {
-  u64 res = initial_permutation(input);
+  u64 res = permutation(IP, input, 64);
   u32 l = res >> 32;
   u32 r = res & 0xFFFFFFFF;
 
@@ -373,9 +341,9 @@ u64 des_block(const u48 *sub_keys, const u64 input)
     l = tmp;
   }
 
-  swap(&l, &r);
+  swap_32(&l, &r);
   res = ((u64)l << 32) ^ (u64)r;
-  res = initial_permutation_inverse(res);
+  res = permutation(IP_1, res, 64);
   return res;
 }
 

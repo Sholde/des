@@ -15,7 +15,7 @@ Makefile setup library in your computer if you have debian system. See Lib chapt
 Compile using :
 
 ```
-make
+$ make
 ```
 
 ## Usage
@@ -23,7 +23,7 @@ make
 ### Demo
 
 ```
-./sdes [ALGORITHM] [ACTION] [INPUT FILE] [OUTPUT FILE]
+$ ./sdes [ALGORITHM] [ACTION] [INPUT FILE] [OUTPUT FILE]
 ```
 
 | ALGORITHM | Description |
@@ -41,7 +41,7 @@ make
 Verify if your decrypted file is like your text file :
 
 ```
-diff test.txt test.dec
+$ diff test.txt test.dec
 ```
 
 ## Library
@@ -55,7 +55,7 @@ Make sure you have compile. See Compile section.
 Install library using :
 
 ```
-./install.sh
+$ ./install.sh
 ```
 
 It's work only on Debian system.
@@ -75,7 +75,7 @@ And use option `-lsdes` when you compile.
 Delete library using :
 
 ```
-./delete.sh
+$ ./delete.sh
 ```
 
 It's work only on Debian system.
